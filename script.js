@@ -8,8 +8,13 @@ const ulEl = document.getElementById("ul-el")
 inputBtn.addEventListener("click", function() {
     myLeads.push(inputEl.value)
     inputEl.value = ""
+    localStorage.setItem("myLeads" , JSON.stringify(myLeads))
     renderLeads()
+    console.log(localStorage.getItem("myLeads"))
 })
+
+let leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads")) 
+console.log(leadsFromLocalStorage)
 
 function renderLeads() {
     let listItems = ""
@@ -56,14 +61,22 @@ function renderLeads() {
 // }
 
 /////////////////// Template strings ///////////////////
-const recipient = "James"
-const sender = "Bilal MB"
+// const recipient = "James"
+// const sender = "Bilal MB"
 
-let email = `Hey ${recipient}! How is it going? Cheers, ${sender}`
+// let email = `Hey ${recipient}! How is it going? Cheers, ${sender}`
 
-console.log(email)
+// console.log(email)
 
 /////////////////// localStorage() ///////////////////
 // localStorage.setItem("MyFirstLead", "www.bilal.com")
 // console.log(localStorage.getItem(MyFirstLead))
 // localStorage.clear()
+
+/////////////////// Using JSON.parse and JSON.stringify ///////////////////
+// let myLeads = `["www.123.com"]`
+
+// myLeads = JSON.parse(myLeads)
+// myLeads.push("www.456.com")
+// myLeads = JSON.stringify(myLeads)
+// console.log(typeof myLeads)
