@@ -14,7 +14,15 @@ inputBtn.addEventListener("click", function() {
 function renderLeads() {
     let listItems = ""
     for (let i=0; i < myLeads.length; i++) {
-        listItems += "<li><a target='_blank' href='" + myLeads[i] + "'>" + myLeads[i] + "</a></li>"
+        listItems += 
+        `
+            <li>
+                <a target='_blank' href='${myLeads[i]}'>
+                ${myLeads[i]} 
+                </a>            
+            </li>
+        `
+        
     }
     ulEl.innerHTML = listItems
 }
@@ -26,7 +34,6 @@ function renderLeads() {
 // })
 
 /////////////////// const Vs let ///////////////////
-
 // const basePrice = 520 // Changes to const
 // const discount = 120  // Changes to const
 // let shippingCost = 12
@@ -47,3 +54,16 @@ function renderLeads() {
 // function buy() {
 //     buyBtn.innerHTML += "<p>Thank you for buying!</p>"
 // }
+
+/////////////////// Template strings ///////////////////
+const recipient = "James"
+const sender = "Bilal MB"
+
+let email = `Hey ${recipient}! How is it going? Cheers, ${sender}`
+
+console.log(email)
+
+/////////////////// localStorage() ///////////////////
+// localStorage.setItem("MyFirstLead", "www.bilal.com")
+// console.log(localStorage.getItem(MyFirstLead))
+// localStorage.clear()
