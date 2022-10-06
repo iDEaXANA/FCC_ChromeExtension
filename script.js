@@ -4,6 +4,7 @@ let oldLeads = []
 const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("input-btn")
 const ulEl = document.getElementById("ul-el")
+const tabBtn = document.getElementById("tab-btn")
 const deleteBtn = document.getElementById("delete-btn")
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads")) 
 
@@ -34,6 +35,16 @@ inputBtn.addEventListener("click", function() {
     inputEl.value = ""
     localStorage.setItem("myLeads" , JSON.stringify(myLeads))
     render(myLeads)
+})
+
+
+tabBtn.addEventListener("click", function() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        myLeads.push(tabs[0].url)
+        localStorage.setItem("myLeads", JSON.stringify(myLeads))
+        render(myLeads)
+    })
+   
 })
 
 deleteBtn.addEventListener("dblclick", function() {
@@ -121,6 +132,23 @@ function greetUsers2(greeting) {
 console.log(greetUsers2("Howdy"))
 
 function greetUsers3(greeting, name) {
-    console.log(greeting + " " + name + " !")
+    console.log(`${greeting}, ${name}!`)
 }
 console.log(greetUsers3("Howdy", "Bilal"))
+
+function greetUsers4(greeting, name, emoji) {
+    console.log(`${greeting}, ${name} ${emoji}`)
+}
+console.log(greetUsers4("Howdy", "Bilal", "😏"))
+
+function add(a, b) {
+    return a + b
+}
+console.log(add(3, 4))
+console.log(add(9, 102))
+
+function getFirst(arr) {
+    return arr[0]
+}
+const favColour = ["purple", "orange", "crimson"]
+console.log(getFirst(favColour))
