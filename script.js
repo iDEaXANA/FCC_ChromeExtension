@@ -1,29 +1,25 @@
 "use strict"
 let myLeads = []
+let oldLeads = []
 const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("input-btn")
 const ulEl = document.getElementById("ul-el")
+const deleteBtn = document.getElementById("delete-btn")
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads")) 
 
+if (leadsFromLocalStorage) {
+    myLeads = leadsFromLocalStorage
+    render(myLeads)
+}
 
-inputBtn.addEventListener("click", function() {
-    myLeads.push(inputEl.value)
-    inputEl.value = ""
-    localStorage.setItem("myLeads" , JSON.stringify(myLeads))
-    renderLeads()
-    console.log(localStorage.getItem("myLeads"))
-})
-
-let leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads")) 
-console.log(leadsFromLocalStorage)
-
-function renderLeads() {
+function render(leads) { //leads is a general name. Anything can be passed through to it
     let listItems = ""
-    for (let i=0; i < myLeads.length; i++) {
+    for (let i=0; i < leads.length; i++) {
         listItems += 
         `
             <li>
-                <a target='_blank' href='${myLeads[i]}'>
-                ${myLeads[i]} 
+                <a target='_blank' href='${leads[i]}'>
+                ${leads[i]} 
                 </a>            
             </li>
         `
@@ -31,6 +27,22 @@ function renderLeads() {
     }
     ulEl.innerHTML = listItems
 }
+
+
+inputBtn.addEventListener("click", function() {
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("myLeads" , JSON.stringify(myLeads))
+    render(myLeads)
+})
+
+deleteBtn.addEventListener("dblclick", function() {
+    localStorage.clear()
+    myLeads = []
+    render(myLeads)
+})
+
+
 
 /////////////////// addEventListener ///////////////////
 // let myBox = document.getElementById("box-el")
@@ -80,3 +92,35 @@ function renderLeads() {
 // myLeads.push("www.456.com")
 // myLeads = JSON.stringify(myLeads)
 // console.log(typeof myLeads)
+
+/////////////////// Truthy or falsey? ///////////////////
+console.log( Boolean("") ) // false
+console.log( Boolean("0") ) // true
+console.log( Boolean(100) ) // true
+console.log( Boolean(null) ) // false
+console.log( Boolean([0]) ) // true
+console.log( Boolean(-0) ) // true // 0 is false, hence false.
+
+/////////////////// Passing through paramaters(+Arguments) ///////////////////
+
+function greetUser() {
+    console.log("Welcome back, Per Harald Borgen!")
+}
+greetUser()
+//Problem with the function is you want it to greet any user.
+//Thus:
+
+function greetUsers(name) {
+    console.log("Welcome back, " + name + " !")
+}
+console.log(greetUsers("Bilal"))
+
+function greetUsers2(greeting) {
+    console.log(greeting + " Bilal" + " !")
+}
+console.log(greetUsers2("Howdy"))
+
+function greetUsers3(greeting, name) {
+    console.log(greeting + " " + name + " !")
+}
+console.log(greetUsers3("Howdy", "Bilal"))
